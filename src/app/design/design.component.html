@@ -1,4 +1,8 @@
-<h1>heeloaaaa</h1>
+<!-- <button (click)="textFormat()">Add text</button>
+<div *ngIf="isTextformat">
+  <input id="textformat" type="text" [(ngModel)]="text" />
+  <button (click)="textChange($event)" name="addbtn" #textformat>ADD</button>
+</div> -->
 <input
   type="file"
   accept="image/*"
@@ -7,6 +11,7 @@
   #fileInput
   (change)="onImageChange($event)"
 />
+
 <button
   data-toggle="tooltip"
   data-placement="bottom"

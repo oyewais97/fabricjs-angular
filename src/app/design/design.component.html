@@ -3,26 +3,37 @@
   <input id="textformat" type="text" [(ngModel)]="text" />
   <button (click)="textChange($event)" name="addbtn" #textformat>ADD</button>
 </div> -->
-<input
-  type="file"
-  accept="image/*"
-  name="file"
-  id="fileInput"
-  #fileInput
-  (change)="onImageChange($event)"
-/>
-
-<button
-  data-toggle="tooltip"
-  data-placement="bottom"
-  title="Export to image"
-  type="button"
-  class="btn btn-primary"
-  (click)="rasterize()"
-  download=""
->
-  Export
-</button>
+<div>
+  <input
+    type="file"
+    accept="image/*"
+    name="file"
+    id="fileInput"
+    #fileInput
+    (change)="onImageChange($event)"
+  />
+  <button (click)="addText()">ADD Text</button>
+  <button
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="Export to image"
+    type="button"
+    class="btn btn-primary"
+    (click)="rasterize()"
+    download=""
+  >
+    Export
+  </button>
+  <div>
+    <label for="files" class="btn">Select Image</label>
+    <input
+      id="files"
+      name="filess"
+      type="file"
+      (change)="onChangeElement($event)"
+    />
+  </div>
+</div>
 <div class="main-container">
   <div class="second-container">
     <canvas id="myCanvas"> </canvas>

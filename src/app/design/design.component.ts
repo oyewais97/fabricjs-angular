@@ -309,57 +309,57 @@ export class DesignComponent implements OnInit {
     //   );
     // });
 
-    this.canvas.add(
-      new fabric.IText('tour  !', {
-        left: 50,
-        top: 50,
-        fontFamily: 'Helvetica',
-        fill: '#000',
-        lineHeight: 1.1,
+    // this.canvas.add(
+    //   new fabric.IText('tour  !', {
+    //     left: 50,
+    //     top: 50,
+    //     fontFamily: 'Helvetica',
+    //     fill: '#000',
+    //     lineHeight: 1.1,
 
-        styles: {
-          0: {
-            0: { textDecoration: 'underline', fontSize: 80 },
-            1: {},
-          },
-          1: {
-            0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-            4: { fontSize: 20 },
-          },
-        },
-      })
-    );
+    //     styles: {
+    //       0: {
+    //         0: { textDecoration: 'underline', fontSize: 80 },
+    //         1: {},
+    //       },
+    //       1: {
+    //         0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
+    //         4: { fontSize: 20 },
+    //       },
+    //     },
+    //   })
+    // );
 
-    fabric.Image.fromURL('', (image) => {
-      image.crossOrigin = 'anonymous';
+    // fabric.Image.fromURL('', (image) => {
+    //   image.crossOrigin = 'anonymous';
 
-      image.set({
-        left: 50,
-        top: 70,
-      });
+    //   image.set({
+    //     left: 50,
+    //     top: 70,
+    //   });
 
-      this.canvas.add(image);
-      this.canvas.add(
-        new fabric.IText('value', {
-          left: 50,
-          top: 50,
-          fontFamily: 'Helvetica',
-          fill: '#FFFFFF',
-          lineHeight: 1.1,
+    //   this.canvas.add(image);
+    //   this.canvas.add(
+    //     new fabric.IText('value', {
+    //       left: 50,
+    //       top: 50,
+    //       fontFamily: 'Helvetica',
+    //       fill: '#FFFFFF',
+    //       lineHeight: 1.1,
 
-          styles: {
-            0: {
-              0: { textDecoration: 'underline', fontSize: 80 },
-              1: {},
-            },
-            1: {
-              0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-              4: { fontSize: 20 },
-            },
-          },
-        })
-      );
-    });
+    //       styles: {
+    //         0: {
+    //           0: { textDecoration: 'underline', fontSize: 80 },
+    //           1: {},
+    //         },
+    //         1: {
+    //           0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
+    //           4: { fontSize: 20 },
+    //         },
+    //       },
+    //     })
+    //   );
+    // });
 
     // fabric.Image.fromURL(this.imgFile, (image) => {
     //   image.set({

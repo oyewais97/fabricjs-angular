@@ -1,0 +1,22 @@
+.main-container {
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 2rem;
+}
+.second-container {
+  text-align: center;
+  margin: 10rem 0rem 0rem 10rem;
+}
+.upperContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+input.file {
+  position: relative;
+  text-align: right;
+  filter: alpha();
+  opacity: 0;
+  z-index: 2;
+}

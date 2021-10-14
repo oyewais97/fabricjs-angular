@@ -3,17 +3,32 @@
   <input id="textformat" type="text" [(ngModel)]="text" />
   <button (click)="textChange($event)" name="addbtn" #textformat>ADD</button>
 </div> -->
-<div>
-  <input
-    type="file"
-    accept="image/*"
-    name="file"
-    id="fileInput"
-    #fileInput
-    (change)="onImageChange($event)"
-  />
-  <button (click)="addText()">ADD Text</button>
+<div class="upperContainer">
+  <div>
+    <button
+      style="display: block; width: 120px; height: 37px; margin: 10px"
+      onclick="document.getElementById('fileInput').click()"
+    >
+      ADD BACKGROUND
+    </button>
+    <input
+      type="file"
+      accept="image/*"
+      name="file"
+      id="fileInput"
+      #fileInput
+      (change)="onImageChange($event)"
+      style="display: none"
+    />
+  </div>
   <button
+    (click)="addText()"
+    style="display: block; width: 120px; height: 30px; margin: 10px"
+  >
+    ADD Text
+  </button>
+  <button
+    style="display: block; width: 120px; height: 30px; margin: 10px"
     data-toggle="tooltip"
     data-placement="bottom"
     title="Export to image"
@@ -25,18 +40,24 @@
     Export
   </button>
   <div>
-    <label for="files" class="btn">Select Image</label>
+    <button
+      style="display: block; width: 120px; height: 30px; margin: 10px"
+      onclick="document.getElementById('files').click()"
+    >
+      Upload Image
+    </button>
     <input
       id="files"
       name="filess"
       type="file"
       (change)="onChangeElement($event)"
+      style="display: none"
     />
   </div>
 </div>
 <div class="main-container">
   <div class="second-container">
-    <canvas id="myCanvas"> </canvas>
+    <canvas id="myCanvas" style="border: 6px solid rgb(80, 85, 155)"> </canvas>
   </div>
 </div>
 <!-- <div>

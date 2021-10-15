@@ -9,13 +9,17 @@ export class DesignComponent implements OnInit {
   constructor() {
     this.resultImage = null;
   }
+
+  group = {};
   isTextformat = false;
   imgFile: any = '';
+  textFabric: any = '';
   text = [
     {
       title: 'ADD TEXt',
     },
   ];
+  items: any = [];
   imagess: any = '';
   multiImage = [
     {
@@ -29,36 +33,91 @@ export class DesignComponent implements OnInit {
   // image: any =
   //   'https://www.gettyimages.com/gi-resources/images/500px/983794168.jpg';
   width: number = 900;
-  public changeSize() {
-    this.canvas.changeSize();
-  }
+  // public changeSize() {
+  //   this.canvas.changeSize();
+  // }
   // onFileChanged(event: any) {
   //   this.selectedFile = event.target.files[0];
   // }
+  textFont = 60;
+  secondtext = 0;
+  changeFont(operator: any) {
+    let textFont = this.textFont + 1;
+    let obj = this.canvas;
+    operator === '+' ? textFont++ : textFont--;
+    console.log(textFont);
+    for (let i = textFont; i < textFont + 1; i++) {
+      obj.getActiveObject().set('fontSize', textFont);
+      obj.renderAll();
+    }
+    this.textFont = this.textFont + 1;
+    console.log(this.textFont);
+  }
+  changeFont2(operator: any) {
+    let textFont = this.textFont - 1;
+    let obj = this.canvas;
+    operator === '+' ? textFont++ : textFont--;
+    console.log(textFont);
+    for (let i = textFont; i < textFont + 1; i++) {
+      obj.getActiveObject().set('fontSize', textFont);
+      obj.renderAll();
+    }
+    this.textFont = this.textFont - 1;
+    console.log(this.textFont);
+  }
+  groupObjects() {
+    let obj = this.canvas;
+    let textFont = this.textFont;
+    const increse: any = document.getElementById('increase');
+
+    obj.getActiveObject().set('fontSize', textFont);
+    obj.renderAll();
+  }
+  groupObjects2() {
+    this.textFont = this.textFont - 1;
+  }
+
   addText() {
     this.text.map((e) => {
       this.canvas.add(
-        new fabric.IText(e.title, {
+        (this.textFabric = new fabric.IText(e.title, {
           left: 50,
           top: 50,
           fontFamily: 'Helvetica',
           fill: '#000',
           lineHeight: 1.1,
+          fontSize: this.textFont,
 
           styles: {
             0: {
-              0: { textDecoration: 'underline', fontSize: 80 },
+              0: { textDecoration: 'underline' },
               1: {},
             },
             1: {
               0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-              4: { fontSize: 20 },
+              4: { fontSize: this.textFont },
             },
           },
-        })
+        }))
       );
     });
   }
+
+  // groupObjects(canvas: any, group: any, shouldGroup: any) {
+  //   if (shouldGroup) {
+  //     const objects = canvas.getObjects();
+  //     group.val = new fabric.Group(objects, { cornerColor: 'white' });
+
+  //     canvas.add(group.val);
+  //     canvas.requestRenderAll();
+  //   } else {
+  //     let oldGroup = group.val.getObjects();
+
+  //     canvas.add(oldGroup);
+  //     group.val = null;
+  //     canvas.requestRenderAll();
+  //   }
+  // }
   textFormat() {
     this.isTextformat = true;
   }
@@ -289,6 +348,8 @@ export class DesignComponent implements OnInit {
     // this.canvas.setBackgroundImage(this.onImageChange);
     this.addText;
     this.onChangeElement;
+    this.groupObjects;
+
     // this.text.map((e) => {
     //   this.canvas.add(
     //     new fabric.IText(e.title, {

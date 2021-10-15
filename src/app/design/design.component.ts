@@ -268,10 +268,13 @@ export class DesignComponent implements OnInit {
     // newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
     // const image = this.canvas.toDataURL();
     // console.log(image);
-
+    let downloadLink = document.createElement('a');
+    downloadLink.setAttribute('download', 'CanvasAsImage.png');
     const image = new Image();
     image.crossOrigin = 'anonymous';
-    image.src = this.canvas.toDataURL({ format: 'jpg' });
+    image.src = this.canvas.toDataURL('image/png');
+    downloadLink.setAttribute('href', image.src);
+    downloadLink.click();
     let wi: any = window.open('');
     wi.document.write(image.outerHTML);
     console.log('yes');

@@ -11,6 +11,9 @@
 .upperContainer {
   display: flex;
   flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  padding-top: 5rem;
 }
 
 input.file {
@@ -19,4 +22,26 @@ input.file {
   filter: alpha();
   opacity: 0;
   z-index: 2;
+}
+.btns {
+  background-color: rgb(25, 137, 172);
+  color: white;
+  font-family: "Times New Roman";
+  border-radius: 6px;
+  border-width: 0px;
+}
+.btns-add-text {
+  background-color: rgb(58, 94, 116);
+  color: white;
+  font-family: "Times New Roman";
+  border-radius: 6px;
+  border-width: 0px;
+}
+.btn-primary {
+  background-color: rgb(224, 212, 40);
+  color: rgb(14, 14, 14);
+  font-family: "Times New Roman";
+  border-radius: 6px;
+  border-width: 0px;
+  font-weight: 600;
 }

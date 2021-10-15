@@ -6,6 +6,7 @@
 <div class="upperContainer">
   <div>
     <button
+      class="btns"
       style="display: block; width: 120px; height: 37px; margin: 10px"
       onclick="document.getElementById('fileInput').click()"
     >
@@ -22,6 +23,7 @@
     />
   </div>
   <button
+    class="btns-add-text"
     (click)="addText()"
     style="display: block; width: 120px; height: 30px; margin: 10px"
   >
@@ -37,10 +39,11 @@
     (click)="rasterize()"
     download=""
   >
-    Export
+    Download
   </button>
   <div>
     <button
+      class="btns"
       style="display: block; width: 120px; height: 30px; margin: 10px"
       onclick="document.getElementById('files').click()"
     >

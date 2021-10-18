@@ -30,6 +30,7 @@ export class DesignComponent implements OnInit {
   // selectedFile: any[];
   canvas: any;
   value: any;
+  FontSizebtnShow = false;
   // image: any =
   //   'https://www.gettyimages.com/gi-resources/images/500px/983794168.jpg';
   width: number = 900;
@@ -39,54 +40,86 @@ export class DesignComponent implements OnInit {
   // onFileChanged(event: any) {
   //   this.selectedFile = event.target.files[0];
   // }
+  textBold = false;
   textFont = 60;
   secondtext = 0;
+  textfont2: number = 30;
+  textColor: any = '#000';
+  fontFamily = 'Helvetica';
+  setFontFamily() {
+    this.fontFamily = this.fontFamily;
+    let obj = this.canvas;
+    obj.getActiveObject().set('fontFamily', this.fontFamily);
+    obj.renderAll();
+  }
+
   changeFont(operator: any) {
     let textFont = this.textFont + 1;
     let obj = this.canvas;
     operator === '+' ? textFont++ : textFont--;
     console.log(textFont);
     for (let i = textFont; i < textFont + 1; i++) {
-      obj.getActiveObject().set('fontSize', textFont);
+      this.textfont2 = i;
+      obj.getActiveObject().set('fontSize', i);
       obj.renderAll();
     }
     this.textFont = this.textFont + 1;
+
     console.log(this.textFont);
   }
   changeFont2(operator: any) {
     let textFont = this.textFont - 1;
     let obj = this.canvas;
+    let textBold = this.textBold;
     operator === '+' ? textFont++ : textFont--;
     console.log(textFont);
     for (let i = textFont; i < textFont + 1; i++) {
-      obj.getActiveObject().set('fontSize', textFont);
+      this.textfont2 = i;
+      obj.getActiveObject().set('fontSize', i);
       obj.renderAll();
     }
     this.textFont = this.textFont - 1;
     console.log(this.textFont);
   }
-  groupObjects() {
+  FontInput(e: any) {
+    this.textFont = e.target.value;
+  }
+  textBolds() {
+    this.textBold = !this.textBold;
     let obj = this.canvas;
-    let textFont = this.textFont;
-    const increse: any = document.getElementById('increase');
 
-    obj.getActiveObject().set('fontSize', textFont);
-    obj.renderAll();
+    if (this.textBold) {
+      obj.getActiveObject().set('fontWeight', 800);
+      obj.renderAll();
+    } else {
+      obj.getActiveObject().set('fontWeight', 400);
+      obj.renderAll();
+    }
+    console.log(this.textBold);
   }
-  groupObjects2() {
-    this.textFont = this.textFont - 1;
-  }
+
+  // groupObjects() {
+  //   let obj = this.canvas;
+  //   let textFont = this.textFont;
+  //   const increse: any = document.getElementById('increase');
+
+  //   obj.getActiveObject().set('fontSize', textFont);
+  //   obj.renderAll();
+  // }
+  // groupObjects2() {
+  //   this.textFont = this.textFont - 1;
+  // }
 
   addText() {
+    this.textFont = 60;
+    this.fontFamily = 'helvetica';
+    this.FontSizebtnShow = true;
     this.text.map((e) => {
       this.canvas.add(
         (this.textFabric = new fabric.IText(e.title, {
           left: 50,
           top: 50,
-          fontFamily: 'Helvetica',
-          fill: '#000',
-          lineHeight: 1.1,
-          fontSize: this.textFont,
+          width: 2,
 
           styles: {
             0: {
@@ -101,6 +134,7 @@ export class DesignComponent implements OnInit {
         }))
       );
     });
+    console.log(this.textBold);
   }
 
   // groupObjects(canvas: any, group: any, shouldGroup: any) {
@@ -165,7 +199,7 @@ export class DesignComponent implements OnInit {
         background.src = this.imgFile;
 
         background.onload = function () {
-          ctxt.drawImage(background, 0, 0, canvas.width, canvas.height);
+          ctxt.drawImage(background, 0, 0);
         };
 
         this.canvas.setBackgroundImage(this.imgFile);
@@ -182,6 +216,14 @@ export class DesignComponent implements OnInit {
 
       //image.scale(getRandomNum(0.1, 0.25)).setCoords();
     }
+  }
+  textColors() {
+    this.textColor = this.textColor;
+    let textColor = this.textColor;
+    let obj = this.canvas;
+
+    obj.getActiveObject().set('fill', textColor);
+    obj.renderAll();
   }
   onChangeElement(e: any) {
     var file = e.target.files[0];
@@ -348,7 +390,6 @@ export class DesignComponent implements OnInit {
     // this.canvas.setBackgroundImage(this.onImageChange);
     this.addText;
     this.onChangeElement;
-    this.groupObjects;
 
     // this.text.map((e) => {
     //   this.canvas.add(

@@ -3,11 +3,12 @@
   <input id="textformat" type="text" [(ngModel)]="text" />
   <button (click)="textChange($event)" name="addbtn" #textformat>ADD</button>
 </div> -->
+
 <div class="upperContainer">
-  <div>
+  <!-- <div>
     <button
       class="btns"
-      style="display: block; width: 120px; height: 37px; margin: 10px"
+      style="display: block; width: 120px; height: 49px; margin: 10px"
       onclick="document.getElementById('fileInput').click()"
     >
       ADD BACKGROUND
@@ -58,16 +59,243 @@
       style="display: none"
     />
   </div>
-  <button (click)="changeFont('+')">+</button>
-  <button (click)="changeFont2('-')">-</button>
+  <div *ngIf="FontSizebtnShow" class="text-option">
+    <button (click)="textBolds()" class="fontSizebtn">B</button>
+    <button (click)="changeFont('+')" class="fontSizebtn">+</button>
+    <input
+      [value]="textFont"
+      class="textFontValue"
+      [(ngModel)]="textFont"
+      (change)="FontInput(textFont)"
+    />
+    <button (click)="changeFont2('-')" class="fontSizebtn">-</button>
+    <label>
+      Text color
+      <input
+        type="color"
+        id="text-color"
+        data-type="color"
+        [value]="textColor"
+        [(ngModel)]="textColor"
+      />
+      <button (click)="textColors()" class="colorbtn">changeColor</button>
+    </label>
+
+    <div class="custom-item">
+      <label class="custom-item-title">Font family</label>
+
+      <select
+        [(ngModel)]="fontFamily"
+        class="form-control"
+        (change)="setFontFamily()"
+      >
+        <option value="arial">Arial</option>
+        <option value="helvetica" selected>Helvetica</option>
+        <option value="verdana">Verdana</option>
+        <option value="courier">Courier</option>
+        <option value="Roboto">Roboto</option>
+        <option value="Open Sans">Open Sans</option>
+        <option value="Zilla Slab">Zilla Slab</option>
+        <option value="Lato">Lato</option>
+        <option value="Bellefair">Bellefair</option>
+        <option value="Fresca">Fresca</option>
+        <option value="Raleway">Raleway</option>
+        <option value="Open Sans Condensed">Open Sans Condensed</option>
+        <option value="Indie Flower">Indie Flower</option>
+        <option value="Josefin Sans">Josefin Sans</option>
+        <option value="Inconsolata">Inconsolata</option>
+        <option value="Pacifico">Pacifico</option>
+        <option value="Gloria Hallelujah">Gloria Hallelujah</option>
+      </select>
+    </div> -->
+
   <!-- <button (click)="groupObjects()" id="increase">Group</button>
   <button (click)="groupObjects2()">Group2</button> -->
-</div>
-<div class="main-container">
-  <div class="second-container">
-    <canvas id="myCanvas" style="border: 6px solid rgb(80, 85, 155)"> </canvas>
-  </div>
-</div>
-<!-- <div>
+  <div class="row col-12">
+    <div class="leftSide">
+      <div class="secondLeft">
+        <div>
+          <button
+            class="btns"
+            style="display: block; width: 120px; height: 49px; margin: 10px"
+            onclick="document.getElementById('fileInput').click()"
+          >
+            ADD BACKGROUND
+          </button>
+          <input
+            type="file"
+            accept="image/*"
+            name="file"
+            id="fileInput"
+            #fileInput
+            (change)="onImageChange($event)"
+            style="display: none"
+          />
+        </div>
+        <button
+          class="btns-add-text"
+          (click)="addText()"
+          style="display: block; width: 120px; height: 30px; margin: 10px"
+        >
+          ADD Text
+        </button>
+
+        <button
+          style="display: block; width: 120px; height: 30px; margin: 10px"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Export to image"
+          type="button"
+          class="btn btn-primary"
+          (click)="rasterize()"
+          download=""
+        >
+          Download
+        </button>
+        <div>
+          <button
+            class="btns"
+            style="display: block; width: 120px; height: 30px; margin: 10px"
+            onclick="document.getElementById('files').click()"
+          >
+            Upload Image
+          </button>
+          <input
+            id="files"
+            name="filess"
+            type="file"
+            (change)="onChangeElement($event)"
+            style="display: none"
+          />
+        </div>
+
+        <div class="text-option" *ngIf="FontSizebtnShow">
+          <div>
+            <button (click)="textBolds()" class="fontSizebtn">Bold</button>
+          </div>
+          <div class="fontSizeDiv" style="margin-top: 1rem">
+            <button (click)="changeFont('+')" class="fontBoldbtn">+</button>
+            <input
+              [value]="textFont"
+              class="textFontValue"
+              [(ngModel)]="textFont"
+              (change)="FontInput(textFont)"
+            />
+            <button (click)="changeFont2('-')" class="fontSizebtn">-</button>
+          </div>
+          <div class="" style="margin-top: 1rem">
+            <label>
+              Text color
+              <input
+                type="color"
+                id="text-color"
+                data-type="color"
+                [value]="textColor"
+                [(ngModel)]="textColor"
+              />
+              <button (click)="textColors()" class="colorbtn">
+                changeColor
+              </button>
+            </label>
+          </div>
+          <div class="custom-item">
+            <label class="custom-item-title">Font family</label>
+
+            <select
+              [(ngModel)]="fontFamily"
+              class="form-control"
+              (change)="setFontFamily()"
+              style="width: 100%"
+            >
+              <option value="arial">Arial</option>
+              <option value="helvetica" selected>Helvetica</option>
+              <option value="verdana">Verdana</option>
+              <option value="courier">Courier</option>
+              <option value="Roboto">Roboto</option>
+              <option value="Open Sans">Open Sans</option>
+              <option value="Zilla Slab">Zilla Slab</option>
+              <option value="Lato">Lato</option>
+              <option value="Bellefair">Bellefair</option>
+              <option value="Fresca">Fresca</option>
+              <option value="Raleway">Raleway</option>
+              <option value="Open Sans Condensed">Open Sans Condensed</option>
+              <option value="Indie Flower">Indie Flower</option>
+              <option value="Josefin Sans">Josefin Sans</option>
+              <option value="Inconsolata">Inconsolata</option>
+              <option value="Pacifico">Times New Roman</option>
+              <option value="Gloria Hallelujah">Gloria Hallelujah</option>
+            </select>
+          </div>
+        </div>
+        <!-- <div class="col-12" style="margin-top: 1rem">
+          <label>
+            Text color
+            <input
+              type="color"
+              id="text-color"
+              data-type="color"
+              [value]="textColor"
+              [(ngModel)]="textColor"
+            />
+            <button (click)="textColors()" class="colorbtn">changeColor</button>
+          </label>
+        </div>
+        <div class="custom-item">
+          <label class="custom-item-title">Font family</label>
+
+          <select
+            [(ngModel)]="fontFamily"
+            class="form-control"
+            (change)="setFontFamily()"
+          >
+            <option value="arial">Arial</option>
+            <option value="helvetica" selected>Helvetica</option>
+            <option value="verdana">Verdana</option>
+            <option value="courier">Courier</option>
+            <option value="Roboto">Roboto</option>
+            <option value="Open Sans">Open Sans</option>
+            <option value="Zilla Slab">Zilla Slab</option>
+            <option value="Lato">Lato</option>
+            <option value="Bellefair">Bellefair</option>
+            <option value="Fresca">Fresca</option>
+            <option value="Raleway">Raleway</option>
+            <option value="Open Sans Condensed">Open Sans Condensed</option>
+            <option value="Indie Flower">Indie Flower</option>
+            <option value="Josefin Sans">Josefin Sans</option>
+            <option value="Inconsolata">Inconsolata</option>
+            <option value="Pacifico">Times New Roman</option>
+            <option value="Gloria Hallelujah">Gloria Hallelujah</option>
+          </select>
+        </div> -->
+      </div>
+      <div class="rightside col-8 mx-auto">
+        <div class="m">
+          <div class="s">
+            <canvas
+              id="myCanvas"
+              style="
+                border: 6px solid rgb(80, 85, 155);
+                margin-top: 10rem;
+                margin-bottom: 10rem;
+              "
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="main-container">
+    <div class="second-container">
+      <canvas
+        id="myCanvas"
+        style="border: 6px solid rgb(80, 85, 155); margin-top: 20rem"
+      >
+      </canvas>
+    </div>
+  </div> -->
+      <!-- <div>
   <img [src]="imgFile" />
 </div> -->
+    </div>
+  </div>
+</div>

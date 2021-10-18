@@ -45,3 +45,66 @@ input.file {
   border-width: 0px;
   font-weight: 600;
 }
+.fontSizebtn {
+  font-size: 2rem;
+  margin: 0px 10px 0px 4px;
+  background-color: rgb(211, 204, 204);
+  color: #000;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.fontSizeDiv {
+  margin-left: -3rem;
+}
+.fontBoldbtn {
+  font-size: 2rem;
+  margin: 0px 10px 0px 0px;
+  background-color: rgb(211, 204, 204);
+  color: #000;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.textFontValue {
+  width: 10%;
+  height: 5vh;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.colorbtn {
+  font-size: 1.2rem;
+  padding: 5px;
+  margin-left: 10px;
+  background-color: rgb(45, 128, 206);
+  color: whitesmoke;
+  border-width: 0px;
+  border-radius: 5px;
+  width: 45%;
+}
+.custom-item {
+  margin-left: 6rem;
+}
+.rightSide {
+  float: right;
+}
+.text-option {
+  display: flex;
+  flex-direction: row;
+}
+.leftside {
+  /* float: left;
+  background-color: yellow;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  padding-top: 5rem; */
+  float: left;
+}
+.secondLeft {
+  background-color: tomato;
+
+  padding: 3rem;
+  display: flex;
+  flex-direction: row;
+}

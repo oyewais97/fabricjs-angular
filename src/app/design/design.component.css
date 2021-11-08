@@ -24,14 +24,14 @@ input.file {
   z-index: 2;
 }
 .btns {
-  background-color: rgb(25, 137, 172);
+  background-color: rgb(39, 40, 41);
   color: white;
   font-family: "Times New Roman";
   border-radius: 6px;
   border-width: 0px;
 }
 .btns-add-text {
-  background-color: rgb(58, 94, 116);
+  background-color: rgb(39, 40, 41);
   color: white;
   font-family: "Times New Roman";
   border-radius: 6px;
@@ -107,4 +107,47 @@ input.file {
   padding: 3rem;
   display: flex;
   flex-direction: row;
+}
+.side-bar {
+  float: left;
+  height: 100vh;
+  background-color: cadetblue;
+}
+.container-canva {
+  float: right;
+}
+.icon-side-bar {
+  background-color: rgb(41, 39, 39);
+}
+.iconText {
+  font-size: 1.1rem;
+  display: block;
+  padding: 0 4 px;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  max-width: 100%;
+  height: 18 px;
+  line-height: 18px;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+.bold-btn {
+  margin: 20px 10px 0px 4px;
+  background-color: rgb(211, 204, 204);
+  color: #000;
+  border-radius: 5px;
+  border-width: 0px;
+}
+.textHeader {
+  background-color: rgb(236, 232, 232);
+  width: 100%;
+  border-radius: 5px;
+}
+.plus-minus {
+  margin: 20px 0px 0px 0px;
+
+  color: #000;
+  border-radius: 5px;
+  border-width: 0px;
 }

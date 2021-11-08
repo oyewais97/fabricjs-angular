@@ -4,8 +4,111 @@
   <button (click)="textChange($event)" name="addbtn" #textformat>ADD</button>
 </div> -->
 
-<div class="upperContainer">
-  <!-- <div>
+<div class="row">
+  <div class="col-lg-1 icon-side-bar">
+    <div>
+      <button class="btns" onclick="document.getElementById('files').click()">
+        <fa-icon [icon]="faCoffee" style="font-size: 5.34477rem"></fa-icon>
+        <span class="iconText">Upload</span>
+      </button>
+      <input
+        id="files"
+        name="filess"
+        type="file"
+        (change)="onChangeElement($event)"
+        style="display: none"
+      />
+    </div>
+    <div>
+      <button class="btns-add-text" (click)="addText()">
+        <fa-icon [icon]="faText" style="font-size: 5.34477rem"></fa-icon>
+        <span class="iconText">Add Text</span>
+      </button>
+    </div>
+    <div>
+      <button
+        class="btns"
+        onclick="document.getElementById('fileInput').click()"
+      >
+        <fa-icon [icon]="faBackground" style="font-size: 3.34477rem"></fa-icon>
+        <br />ADD BACKGROUND
+      </button>
+      <input
+        type="file"
+        accept="image/*"
+        name="file"
+        id="fileInput"
+        #fileInput
+        (change)="onImageChange($event)"
+        style="display: none"
+      />
+    </div>
+  </div>
+  <div class="col-lg-2 side-bar">
+    <label>Width</label>
+    <input [(ngModel)]="canvaWidth" class="form-control" />
+    <label>height</label>
+    <input [(ngModel)]="canvaHeigth" class="form-control" />
+    <button class="bold-btn" (click)="setCanvaSize()">Set</button>
+  </div>
+  <div class="col-md-6 container-canva">
+    <div class="textHeader">
+      <button class="bold-btn" (click)="textBolds()">
+        <fa-icon [icon]="faBold" style="font-size: 2rem"></fa-icon>
+      </button>
+
+      <button (click)="changeFont('+')" class="plus-minus">
+        <fa-icon [icon]="faPlus" style="font-size: 1rem"></fa-icon>
+      </button>
+      <input
+        [value]="textFont"
+        class="textFontValue"
+        [(ngModel)]="textFont"
+        (change)="FontInput(textFont)"
+      />
+      <button (click)="changeFont2('-')" class="plus-minus">
+        <fa-icon [icon]="faMinus" style="font-size: 1rem"></fa-icon>
+      </button>
+
+      <input
+        type="color"
+        class="form-control-color"
+        id="text-color"
+        data-type="color"
+        [value]="textColor"
+        [(ngModel)]="textColor"
+        (click)="textColors()"
+        value="#563d7c"
+        title="Choose your color"
+        style="margin: 0px 10px 0px 10px"
+      />
+      <select [(ngModel)]="fontFamily" class="k" (change)="setFontFamily()">
+        <option value="arial">Arial</option>
+        <option value="helvetica" selected>Helvetica</option>
+        <option value="verdana">Verdana</option>
+        <option value="courier">Courier</option>
+        <option value="Roboto">Roboto</option>
+        <option value="Open Sans">Open Sans</option>
+        <option value="Zilla Slab">Zilla Slab</option>
+        <option value="Lato">Lato</option>
+        <option value="Bellefair">Bellefair</option>
+        <option value="Fresca">Fresca</option>
+        <option value="Raleway">Raleway</option>
+        <option value="Open Sans Condensed">Open Sans Condensed</option>
+        <option value="Indie Flower">Indie Flower</option>
+        <option value="Josefin Sans">Josefin Sans</option>
+        <option value="Inconsolata">Inconsolata</option>
+        <option value="Pacifico">Pacifico</option>
+        <option value="Gloria Hallelujah">Gloria Hallelujah</option>
+      </select>
+    </div>
+    <div class="second-container">
+      <canvas id="myCanvas" style="border: 6px solid rgb(80, 85, 155)">
+      </canvas>
+    </div>
+  </div>
+</div>
+<!-- <div>
     <button
       class="btns"
       style="display: block; width: 120px; height: 49px; margin: 10px"
@@ -86,7 +189,7 @@
 
       <select
         [(ngModel)]="fontFamily"
-        class="form-control"
+        class="[(ngModel)]="fontFamily""
         (change)="setFontFamily()"
       >
         <option value="arial">Arial</option>
@@ -109,9 +212,9 @@
       </select>
     </div> -->
 
-  <!-- <button (click)="groupObjects()" id="increase">Group</button>
+<!-- <button (click)="groupObjects()" id="increase">Group</button>
   <button (click)="groupObjects2()">Group2</button> -->
-  <div class="row col-12">
+<!-- <div class="row col-12">
     <div class="leftSide">
       <div class="secondLeft">
         <div>
@@ -226,8 +329,8 @@
               <option value="Gloria Hallelujah">Gloria Hallelujah</option>
             </select>
           </div>
-        </div>
-        <!-- <div class="col-12" style="margin-top: 1rem">
+        </div> -->
+<!-- <div class="col-12" style="margin-top: 1rem">
           <label>
             Text color
             <input
@@ -267,7 +370,7 @@
             <option value="Gloria Hallelujah">Gloria Hallelujah</option>
           </select>
         </div> -->
-      </div>
+<!-- </div>
       <div class="rightside col-8 mx-auto">
         <div class="m">
           <div class="s">
@@ -282,9 +385,9 @@
             </canvas>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <!-- <div class="main-container">
+<!-- <div class="main-container">
     <div class="second-container">
       <canvas
         id="myCanvas"
@@ -293,9 +396,9 @@
       </canvas>
     </div>
   </div> -->
-      <!-- <div>
+<!-- <div>
   <img [src]="imgFile" />
 </div> -->
-    </div>
+<!-- </div>
   </div>
-</div>
+</div> -->

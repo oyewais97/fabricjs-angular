@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { fabric } from 'fabric';
+import {
+  faCoffee,
+  faFileImport,
+  faCloudUploadAlt,
+  faTextHeight,
+  faBold,
+  faPlus,
+  faMinus,
+  faPalette,
+} from '@fortawesome/free-solid-svg-icons';
+import { ThrowStmt } from '@angular/compiler';
+
 @Component({
   selector: 'app-design',
   templateUrl: './design.component.html',
@@ -9,14 +21,24 @@ export class DesignComponent implements OnInit {
   constructor() {
     this.resultImage = null;
   }
+  faCoffee = faCloudUploadAlt;
+  faText = faTextHeight;
+  faBackground = faFileImport;
+  faBold = faBold;
+  faPlus = faPlus;
+  faMinus = faMinus;
+  faPalete = faPalette;
 
   group = {};
   isTextformat = false;
   imgFile: any = '';
   textFabric: any = '';
+  canvaWidth = 400;
+  canvaHeigth = 400;
+
   text = [
     {
-      title: 'ADD TEXt',
+      title: 'ADD TEXT',
     },
   ];
   items: any = [];
@@ -51,6 +73,10 @@ export class DesignComponent implements OnInit {
     let obj = this.canvas;
     obj.getActiveObject().set('fontFamily', this.fontFamily);
     obj.renderAll();
+  }
+  setCanvaSize() {
+    this.canvas.setHeight(this.canvaHeigth);
+    this.canvas.setWidth(this.canvaWidth);
   }
 
   changeFont(operator: any) {
@@ -119,11 +145,10 @@ export class DesignComponent implements OnInit {
         (this.textFabric = new fabric.IText(e.title, {
           left: 50,
           top: 50,
-          width: 2,
 
           styles: {
             0: {
-              0: { textDecoration: 'underline' },
+              0: { textDecoration: 'underline', fontSize: this.textFont },
               1: {},
             },
             1: {
@@ -134,7 +159,6 @@ export class DesignComponent implements OnInit {
         }))
       );
     });
-    console.log(this.textBold);
   }
 
   // groupObjects(canvas: any, group: any, shouldGroup: any) {
@@ -156,14 +180,14 @@ export class DesignComponent implements OnInit {
     this.isTextformat = true;
   }
 
-  onUpload() {
-    // this.http is the injected HttpClient
-    const formData = new FormData();
-    for (const file of this.selectedFile) {
-      formData.append(file, file.name);
-    }
-    this.value = formData;
-  }
+  // onUpload() {
+  //   // this.http is the injected HttpClient
+  //   const formData = new FormData();
+  //   for (const file of this.selectedFile) {
+  //     formData.append(file, file.name);
+  //   }
+  //   this.value = formData;
+  // }
 
   private selectedFile: any;
   private imgURL: any;
@@ -184,6 +208,7 @@ export class DesignComponent implements OnInit {
   //     ctxt.drawImage(background, 0, 0, canvas.width, canvas.height);
   //   };
   // }
+  bg: any;
   onImageChange(e: any) {
     const reader = new FileReader();
 
@@ -197,26 +222,45 @@ export class DesignComponent implements OnInit {
         var ctxt = canvas.getContext('2d');
         var background = new Image();
         background.src = this.imgFile;
+        let canvasWidth = canvas.width;
+        let canvaHeigth = canvas.height;
 
         background.onload = function () {
-          ctxt.drawImage(background, 0, 0);
+          ctxt.drawImage(background, 0, 0, canvasWidth, canvaHeigth);
         };
+        this.canvas.setDimensions({
+          width: canvasWidth,
+          height: canvaHeigth,
+        });
+        this.bg = background;
+        this.canvas.setBackgroundImage(
+          this.imgFile,
 
-        this.canvas.setBackgroundImage(this.imgFile);
+          {
+            opacity: 0.5,
+            angle: 0.2,
+            left: 400,
+            top: 400,
+          }
+        );
       };
-      // this.image = this.imgFile;
-      let image = new fabric.Image(this.imgFile);
-      image.crossOrigin = 'anonymous';
-      image.set({
-        left: 250,
-        top: 250,
-        angle: 20,
-        padding: 10,
-      });
-
-      //image.scale(getRandomNum(0.1, 0.25)).setCoords();
     }
+    // this.image = this.imgFile;
+    // let image = new fabric.Image(this.imgFile);
+    // image.crossOrigin = 'anonymous';
+    // image.set({
+    //   left: 250,
+    //   top: 250,
+    // });
+
+    //image.scale(getRandomNum(0.1, 0.25)).setCoords();
   }
+  // resizeCanvas(event?: any) {
+  //   this.canvas.setDimensions({
+  //     width: this.canvaWidth,
+  //     height: this.canvaWidth,
+  //   });
+  // }
   textColors() {
     this.textColor = this.textColor;
     let textColor = this.textColor;
@@ -226,15 +270,57 @@ export class DesignComponent implements OnInit {
     obj.renderAll();
   }
   onChangeElement(e: any) {
+    var canvas: any = document.getElementById('myCanvas');
     var file = e.target.files[0];
     var reader = new FileReader();
     let obj = this;
+    let canvaWidth = this.canvaWidth;
+    let canvaHeigth = this.canvaHeigth;
+    let texts = this.textFabric;
+    while (canvas.width >= this.width && canvas.height >= this.canvaHeigth) {
+      canvas.height * 0.5;
+      canvas.width * 0.5;
+    }
+    console.log('this height', canvas.height);
+    let textFontSize = this.textFont;
+    let fontFamily = this.fontFamily;
+    console.log('this width', canvas.width);
     reader.onload = function (f: any) {
       var data = f.target.result;
+
       fabric.Image.fromURL(data, function (img) {
-        var oImg = img.set({ left: 50, top: 100, angle: 1 }).scale(0.9);
+        var oImg = img
+          .set({
+            left: 50,
+            top: 50,
+            angle: 0,
+          })
+          .scale(0.2);
+
         obj.canvas.add(oImg).renderAll();
         obj.canvas.setActiveObject(oImg);
+        var text = new fabric.Text('01', {
+          fontFamily: fontFamily,
+          fontSize: 20,
+          styles: {
+            0: {
+              0: { textDecoration: 'underline', fontSize: textFontSize },
+              1: {},
+            },
+            1: {
+              0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
+              4: { fontSize: textFontSize },
+            },
+          },
+        });
+
+        texts.set('top');
+        texts.set('left');
+        var group = new fabric.Group([img, text], {
+          left: 100,
+          top: 25,
+        });
+        canvas.add(group);
       });
     };
     reader.readAsDataURL(file);
@@ -383,96 +469,10 @@ export class DesignComponent implements OnInit {
   }
   ngOnInit(): void {
     this.canvas = new fabric.Canvas('myCanvas', {
-      width: this.width,
-      height: 800,
+      width: this.canvaWidth,
+      height: this.canvaHeigth,
       backgroundImage: this.imgFile,
     });
     // this.canvas.setBackgroundImage(this.onImageChange);
-    this.addText;
-    this.onChangeElement;
-
-    // this.text.map((e) => {
-    //   this.canvas.add(
-    //     new fabric.IText(e.title, {
-    //       left: 50,
-    //       top: 50,
-    //       fontFamily: 'Helvetica',
-    //       fill: '#000',
-    //       lineHeight: 1.1,
-
-    //       styles: {
-    //         0: {
-    //           0: { textDecoration: 'underline', fontSize: 80 },
-    //           1: {},
-    //         },
-    //         1: {
-    //           0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-    //           4: { fontSize: 20 },
-    //         },
-    //       },
-    //     })
-    //   );
-    // });
-
-    // this.canvas.add(
-    //   new fabric.IText('tour  !', {
-    //     left: 50,
-    //     top: 50,
-    //     fontFamily: 'Helvetica',
-    //     fill: '#000',
-    //     lineHeight: 1.1,
-
-    //     styles: {
-    //       0: {
-    //         0: { textDecoration: 'underline', fontSize: 80 },
-    //         1: {},
-    //       },
-    //       1: {
-    //         0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-    //         4: { fontSize: 20 },
-    //       },
-    //     },
-    //   })
-    // );
-
-    // fabric.Image.fromURL('', (image) => {
-    //   image.crossOrigin = 'anonymous';
-
-    //   image.set({
-    //     left: 50,
-    //     top: 70,
-    //   });
-
-    //   this.canvas.add(image);
-    //   this.canvas.add(
-    //     new fabric.IText('value', {
-    //       left: 50,
-    //       top: 50,
-    //       fontFamily: 'Helvetica',
-    //       fill: '#FFFFFF',
-    //       lineHeight: 1.1,
-
-    //       styles: {
-    //         0: {
-    //           0: { textDecoration: 'underline', fontSize: 80 },
-    //           1: {},
-    //         },
-    //         1: {
-    //           0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-    //           4: { fontSize: 20 },
-    //         },
-    //       },
-    //     })
-    //   );
-    // });
-
-    // fabric.Image.fromURL(this.imgFile, (image) => {
-    //   image.set({
-    //     left: 50,
-    //     top: 70,
-    //   });
-
-    //   this.canvas.add(this.imgFile);
-    // });
   }
 }

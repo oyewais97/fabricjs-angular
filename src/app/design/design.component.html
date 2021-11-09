@@ -15,7 +15,7 @@
         id="files"
         name="filess"
         type="file"
-        (change)="onChangeElement($event)"
+        (change)="uploadImages($event)"
         style="display: none"
       />
     </div>
@@ -44,12 +44,22 @@
       />
     </div>
   </div>
-  <div class="col-lg-2 side-bar">
+  <div *ngIf="!imageDisplay && !textDisplay" class="col-lg-2 side-bar">
     <label>Width</label>
     <input [(ngModel)]="canvaWidth" class="form-control" />
     <label>height</label>
     <input [(ngModel)]="canvaHeigth" class="form-control" />
     <button class="bold-btn" (click)="setCanvaSize()">Set</button>
+  </div>
+  <div *ngIf="imageDisplay" class="col-lg-2 side-bar">
+    <div *ngFor="let images of imgesArray; let i = index">
+      <img
+        [src]="images"
+        class="col-7"
+        style="margin-top: 1.5rem"
+        (dblclick)="onChangeElement(images)"
+      />
+    </div>
   </div>
   <div class="col-md-6 container-canva">
     <div class="textHeader">
@@ -101,6 +111,18 @@
         <option value="Pacifico">Pacifico</option>
         <option value="Gloria Hallelujah">Gloria Hallelujah</option>
       </select>
+      <button
+        (click)="rasterize()"
+        class="download-btn"
+        style="color: black; border: none"
+      >
+        <!-- <fa-icon [icon]="faDownload" style="font-size: 1.5rem"></fa-icon> -->
+        Download
+      </button>
+
+      <span *ngIf="canvas.getActiveObject()">
+        <button (click)="delete()">Delete</button>
+      </span>
     </div>
     <div class="second-container">
       <canvas id="myCanvas" style="border: 6px solid rgb(80, 85, 155)">

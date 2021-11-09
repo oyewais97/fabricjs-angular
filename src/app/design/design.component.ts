@@ -9,6 +9,7 @@ import {
   faPlus,
   faMinus,
   faPalette,
+  faLongArrowAltDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -28,13 +29,15 @@ export class DesignComponent implements OnInit {
   faPlus = faPlus;
   faMinus = faMinus;
   faPalete = faPalette;
-
+  faDownload = faLongArrowAltDown;
+  deleteBtn = false;
   group = {};
   isTextformat = false;
   imgFile: any = '';
   textFabric: any = '';
-  canvaWidth = 400;
-  canvaHeigth = 400;
+  canvaWidth = 600;
+  canvaHeigth = 600;
+  imgesArray: any[] = [];
 
   text = [
     {
@@ -68,6 +71,8 @@ export class DesignComponent implements OnInit {
   textfont2: number = 30;
   textColor: any = '#000';
   fontFamily = 'Helvetica';
+  imageDisplay: boolean = false;
+  textDisplay: boolean = false;
   setFontFamily() {
     this.fontFamily = this.fontFamily;
     let obj = this.canvas;
@@ -96,7 +101,6 @@ export class DesignComponent implements OnInit {
   changeFont2(operator: any) {
     let textFont = this.textFont - 1;
     let obj = this.canvas;
-    let textBold = this.textBold;
     operator === '+' ? textFont++ : textFont--;
     console.log(textFont);
     for (let i = textFont; i < textFont + 1; i++) {
@@ -124,41 +128,23 @@ export class DesignComponent implements OnInit {
     console.log(this.textBold);
   }
 
-  // groupObjects() {
-  //   let obj = this.canvas;
-  //   let textFont = this.textFont;
-  //   const increse: any = document.getElementById('increase');
-
-  //   obj.getActiveObject().set('fontSize', textFont);
-  //   obj.renderAll();
-  // }
-  // groupObjects2() {
-  //   this.textFont = this.textFont - 1;
-  // }
-
   addText() {
     this.textFont = 60;
     this.fontFamily = 'helvetica';
     this.FontSizebtnShow = true;
-    this.text.map((e) => {
-      this.canvas.add(
-        (this.textFabric = new fabric.IText(e.title, {
-          left: 50,
-          top: 50,
 
-          styles: {
-            0: {
-              0: { textDecoration: 'underline', fontSize: this.textFont },
-              1: {},
-            },
-            1: {
-              0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-              4: { fontSize: this.textFont },
-            },
-          },
-        }))
-      );
-    });
+    this.canvas.add(
+      new fabric.IText('ADD TEXT', {
+        left: 50,
+        top: 100,
+        fontFamily: 'helvetica neue',
+        fill: '#000',
+        stroke: '#fff',
+        strokeWidth: 0,
+      })
+    );
+
+    this.deleteBtn = true;
   }
 
   // groupObjects(canvas: any, group: any, shouldGroup: any) {
@@ -218,243 +204,112 @@ export class DesignComponent implements OnInit {
 
       reader.onload = (event: any) => {
         this.imgFile = reader.result;
-        var canvas: any = document.getElementById('myCanvas');
-        var ctxt = canvas.getContext('2d');
+        var canvas = this.canvas;
+        var ctxt = this.canvas.getContext('2d');
         var background = new Image();
         background.src = this.imgFile;
-        let canvasWidth = canvas.width;
-        let canvaHeigth = canvas.height;
-
-        background.onload = function () {
-          ctxt.drawImage(background, 0, 0, canvasWidth, canvaHeigth);
-        };
-        this.canvas.setDimensions({
-          width: canvasWidth,
-          height: canvaHeigth,
+        // let canvasWidth = this.canvaWidth;
+        // let canvaHeigth = this.canvaHeigth;
+        let data = event.target.result;
+        canvas.width = this.canvaWidth;
+        canvas.height = this.canvaHeigth;
+        fabric.Image.fromURL(data, (img) => {
+          // add background image
+          canvas.setBackgroundImage(
+            this.imgFile,
+            canvas.renderAll.bind(canvas),
+            {
+              angle: 0,
+              scaleX: canvas.width / background.width,
+              scaleY: canvas.height / background.height,
+            }
+          );
         });
-        this.bg = background;
-        this.canvas.setBackgroundImage(
-          this.imgFile,
-
-          {
-            opacity: 0.5,
-            angle: 0.2,
-            left: 400,
-            top: 400,
-          }
-        );
       };
     }
     // this.image = this.imgFile;
-    // let image = new fabric.Image(this.imgFile);
-    // image.crossOrigin = 'anonymous';
-    // image.set({
-    //   left: 250,
-    //   top: 250,
-    // });
+    let image = new fabric.Image(this.imgFile);
+    image.crossOrigin = 'anonymous';
+    image.set({
+      left: 250,
+      top: 250,
+    });
 
     //image.scale(getRandomNum(0.1, 0.25)).setCoords();
   }
-  // resizeCanvas(event?: any) {
-  //   this.canvas.setDimensions({
-  //     width: this.canvaWidth,
-  //     height: this.canvaWidth,
-  //   });
-  // }
+  resizeCanvas(event?: any) {
+    this.canvas.setDimensions({
+      width: this.canvaWidth,
+      height: this.canvaWidth,
+    });
+  }
   textColors() {
-    this.textColor = this.textColor;
-    let textColor = this.textColor;
     let obj = this.canvas;
 
-    obj.getActiveObject().set('fill', textColor);
+    obj.getActiveObject().set('fill', this.textColor);
     obj.renderAll();
   }
-  onChangeElement(e: any) {
-    var canvas: any = document.getElementById('myCanvas');
-    var file = e.target.files[0];
-    var reader = new FileReader();
-    let obj = this;
-    let canvaWidth = this.canvaWidth;
-    let canvaHeigth = this.canvaHeigth;
-    let texts = this.textFabric;
-    while (canvas.width >= this.width && canvas.height >= this.canvaHeigth) {
-      canvas.height * 0.5;
-      canvas.width * 0.5;
-    }
-    console.log('this height', canvas.height);
-    let textFontSize = this.textFont;
-    let fontFamily = this.fontFamily;
-    console.log('this width', canvas.width);
-    reader.onload = function (f: any) {
-      var data = f.target.result;
-
-      fabric.Image.fromURL(data, function (img) {
-        var oImg = img
-          .set({
-            left: 50,
-            top: 50,
-            angle: 0,
-          })
-          .scale(0.2);
-
-        obj.canvas.add(oImg).renderAll();
-        obj.canvas.setActiveObject(oImg);
-        var text = new fabric.Text('01', {
-          fontFamily: fontFamily,
-          fontSize: 20,
-          styles: {
-            0: {
-              0: { textDecoration: 'underline', fontSize: textFontSize },
-              1: {},
-            },
-            1: {
-              0: { textBackgroundColor: 'rgba(255,255,0,0.3);' },
-              4: { fontSize: textFontSize },
-            },
-          },
-        });
-
-        texts.set('top');
-        texts.set('left');
-        var group = new fabric.Group([img, text], {
-          left: 100,
-          top: 25,
-        });
-        canvas.add(group);
-      });
-    };
-    reader.readAsDataURL(file);
+  delete() {
+    this.canvas.remove(this.canvas.getActiveObject());
   }
-  // console.log('yes');
-  // const reader = new FileReader();
-  // debugger;
+  uploadImages(e: any) {
+    var reader = new FileReader();
+    if (e.target.files && e.target.files.length) {
+      const [file] = e.target.files;
+      reader.readAsDataURL(file);
 
-  //   var canvas: any = document.getElementById('myCanvas');
-  //   var ctxt = canvas.getContext('2d');
-  //   reader.onload = function (f: any) {
-  //     var data = f.target.result;
-  //     console.log(data);
-  //     fabric.Image.fromURL(data, function (img) {
-  //       var oImg = img
-  //         .set({ left: 0, top: 0, angle: 0, width: 100, height: 100 })
-  //         .scale(0.9);
-  //       canvas.add(oImg).renderAll();
-  //       var a = canvas.setActiveObject(oImg);
-  //       var dataURL = canvas.toDataURL({ format: 'png', quality: 0.8 });
-  //     });
-  //   };
-  //   reader.readAsDataURL(file);
+      reader.onload = (f: any) => {
+        var data = f.target.result;
+        console.log('images', data);
+        this.imgesArray.push(data);
+        this.imageDisplay = true;
+        console.log('array images', this.imgesArray);
+      };
+    }
+  }
+  onChangeElement(e: any) {
+    //
 
-  //     reader.onload = (event: any) => {
-  //       this.imagess = reader.result;
-  //       var canvass: any = document.getElementById('myCanvas');
-  //       var ctxt = canvass.getContext('2d');
-  //       var background = new Image();
-  //       background.src = this.imagess;
+    let canvas = this.canvas;
+    let scale = 1;
+    var data = e;
+    console.log('data images', data);
 
-  //       background.onload = function () {
-  //         ctxt.drawImage(background, 0, 0);
-  //       };
-  //       this.canvas.add(this.imagess);
-  //     };
+    fabric.Image.fromURL(data, (img) => {
+      console.log(img.width);
+      let imgWidth: any = img.width;
+      let imgHeight: any = img.height;
 
-  //     // this.image = this.imgFile;
-  //     let image = fabric.Image.fromURL(this.imagess, (image) => {
-  //       image.set({
-  //         left: 50,
-  //         top: 70,
-  //       });
+      console.log('scale', imgWidth);
+      console.log('scale', imgHeight);
+      console.log('scale', this.canvaWidth);
+      console.log('scale', this.canvaHeigth);
 
-  //       this.canvas.add(image);
-  //     });
-  //   }
+      while (imgWidth > this.canvaWidth || imgHeight > this.canvaHeigth) {
+        imgWidth = imgWidth * 0.9;
+        imgHeight = imgHeight * 0.9;
+        scale *= 0.9;
+        console.log('inside', scale);
+      }
 
-  //   //image.scale(getRandomNum(0.1, 0.25)).setCoords();
-  //   // const reader = new FileReader();
-  //   // if (e.target.files && e.target.files.length) {
-  //   //   const [file] = e.target.files;
-  //   //   reader.readAsDataURL(file);
-  //   //   reader.onload = (event: any) => {
-  //   //     this.multiImage.map((e) => {
-  //   //       e.images = reader.result;
-  //   //     });
-  //   //     var canvas: any = document.getElementById('myCanvas');
-  //   //     var ctxt = canvas.getContext('2d');
-  //   //     var background = new Image();
-  //   //     background.src = this.imagess;
-  //   //     background.onload = function () {
-  //   //       // ctxt.drawImage(background, 0, 0, canvas.width, canvas.height);
-  //   //       new fabric.Image(background);
-  //   //       image.set({
-  //   //         angle: 0,
-  //   //         padding: 10,
-  //   //         height: 110,
-  //   //         width: 110,
-  //   //       });
-  //   //       canvas.centerObject(image);
-  //   //       canvas.add(image);
-  //   //       canvas.renderAll();
-  //   //     };
-  //   //     this.canvas.setBackgroundImage(this.imgFile);
-  //   //   };
-  //   //   // this.image = this.imgFile;
-  //   //   let image = new fabric.Image(this.imgFile);
-  //   //   image.crossOrigin = 'anonymous';
-  //   //   image.set({
-  //   //     left: 250,
-  //   //     top: 250,
-  //   //     angle: 20,
-  //   //     padding: 10,
-  //   //   });
-  //   // }
-  //   // // const reader = new FileReader();
-  //   // // if (e.target.files && e.target.files.length) {
-  //   // //   const [file] = e.target.files;
-  //   // //   reader.readAsDataURL(file);
-  //   // //   reader.onload = (event: any) => {
-  //   // //     this.multiImage.map(events=>{
-  //   // //     events.images = reader.result;
-  //   // //     var canvas: any = document.getElementById('myCanvas');
-  //   // //     var ctxt = canvas.getContext('2d');
-  //   // //     var background = new Image();
-  //   // //     background.src = this.imgFile;
-  //   // //   })
-  //   // //   }
-  //   // // }
-  //   // var reader = new FileReader();
-  //   //   reader.onload = function (event){
-  //   //     var imgObj = new Image();
-  //   //     imgObj.src = event.target.result;
-  //   //     imgObj.onload = function () {
-  //   //       var image = new fabric.Image(imgObj);
-  //   //       image.set({
-  //   //             angle: 0,
-  //   //             padding: 10,
-  //   //             cornersize:10,
-  //   //             height:110,
-  //   //             width:110,
-  //   //       });
-  //   //       canvas.centerObject(image);
-  //   //       canvas.add(image);
-  //   //       canvas.renderAll();
-  //   //     }
-  //   //   }
-  //   //   reader.readAsDataURL(e.target.files[0]);
-  //   // }
-  // }
+      var oImg = img
+        .set({
+          left: 10,
+          top: 10,
+          angle: 0.2,
+          //<-- set this
+        })
+        .scale(scale);
+      canvas.add(oImg).renderAll();
+      //var a = canvas.setActiveObject(oImg);
+      var dataURL = canvas.toDataURL({
+        format: 'png',
+        quality: 1,
+      });
+    });
+  }
+
   rasterize() {
-    // var image = this.canvas
-    //   .toDataURL('image/png')
-    //   .replace('image/png', 'image/octet-stream'); // here is the most important part because if you dont replace you will get a DOM 18 exception.
-
-    // window.location.href = image; // it will save locally
-
-    // let canvas: any = document.getElementById('myCanvas');
-    // let dataURL = canvas.toDataURL('image/png');
-    // let newTab: any = window.open('about:blank', 'image from canvas');
-    // newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
-    // const image = this.canvas.toDataURL();
-    // console.log(image);
     let downloadLink = document.createElement('a');
     downloadLink.setAttribute('download', 'CanvasAsImage.png');
     const image = new Image();
@@ -471,8 +326,15 @@ export class DesignComponent implements OnInit {
     this.canvas = new fabric.Canvas('myCanvas', {
       width: this.canvaWidth,
       height: this.canvaHeigth,
-      backgroundImage: this.imgFile,
     });
+    // let deletbtn: Boolean = this.deleteBtn;
+    // this.canvas.on('object:selected', function (e: any) {
+    //   deletbtn = false;
+    // });
+    // this.canvas.on('before:selection:cleared', function (e: any) {
+    //   deletbtn = true;
+    // });
+
     // this.canvas.setBackgroundImage(this.onImageChange);
   }
 }

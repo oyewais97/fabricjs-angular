@@ -37,7 +37,9 @@ export class DesignComponent implements OnInit {
   textFabric: any = '';
   canvaWidth = 600;
   canvaHeigth = 600;
-  imgesArray: any[] = [];
+  imgesArray: any[] = [
+    'https://images.unsplash.com/photo-1546587348-d12660c30c50?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+  ];
 
   text = [
     {
@@ -85,16 +87,18 @@ export class DesignComponent implements OnInit {
   }
 
   changeFont(operator: any) {
-    let textFont = this.textFont + 1;
-    let obj = this.canvas;
-    operator === '+' ? textFont++ : textFont--;
-    console.log(textFont);
-    for (let i = textFont; i < textFont + 1; i++) {
-      this.textfont2 = i;
-      obj.getActiveObject().set('fontSize', i);
-      obj.renderAll();
+    if (this.textHeadingone) {
+      let textFont = this.textFont + 1;
+      let obj = this.canvas;
+      operator === '+' ? textFont++ : textFont--;
+      console.log(textFont);
+      for (let i = textFont; i < textFont + 1; i++) {
+        this.textfont2 = i;
+        obj.getActiveObject().set('fontSize', i);
+        obj.renderAll();
+      }
+      this.textFont = this.textFont + 1;
     }
-    this.textFont = this.textFont + 1;
 
     console.log(this.textFont);
   }
@@ -129,7 +133,13 @@ export class DesignComponent implements OnInit {
   }
 
   addText() {
-    this.textFont = 60;
+    this.textDisplay = true;
+  }
+  textHeadingone: boolean = false;
+  textSizeHeading1() {
+    this.textHeadingone = true;
+
+    this.textFont = 32;
     this.fontFamily = 'helvetica';
     this.FontSizebtnShow = true;
 
@@ -141,12 +151,32 @@ export class DesignComponent implements OnInit {
         fill: '#000',
         stroke: '#fff',
         strokeWidth: 0,
+        fontSize: this.textFont,
       })
     );
 
     this.deleteBtn = true;
   }
+  textSizeHeading2() {
+    this.textDisplay = true;
+    this.textFont = 24;
+    this.fontFamily = 'helvetica';
+    this.FontSizebtnShow = true;
 
+    this.canvas.add(
+      new fabric.IText('ADD TEXT', {
+        left: 50,
+        top: 100,
+        fontFamily: 'helvetica neue',
+        fill: '#000',
+        stroke: '#fff',
+        strokeWidth: 0,
+        fontSize: this.textFont,
+      })
+    );
+
+    this.deleteBtn = true;
+  }
   // groupObjects(canvas: any, group: any, shouldGroup: any) {
   //   if (shouldGroup) {
   //     const objects = canvas.getObjects();
@@ -252,6 +282,10 @@ export class DesignComponent implements OnInit {
   delete() {
     this.canvas.remove(this.canvas.getActiveObject());
   }
+  imageDiv() {
+    this.imageDisplay = true;
+    this.textDisplay = false;
+  }
   uploadImages(e: any) {
     var reader = new FileReader();
     if (e.target.files && e.target.files.length) {
@@ -261,7 +295,7 @@ export class DesignComponent implements OnInit {
       reader.onload = (f: any) => {
         var data = f.target.result;
         console.log('images', data);
-        this.imgesArray.push(data);
+        this.imgesArray.unshift(data);
         this.imageDisplay = true;
         console.log('array images', this.imgesArray);
       };

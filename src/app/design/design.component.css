@@ -173,6 +173,7 @@ header .header-main .menu-left ul li a{
   opacity: 0;
   height: 0;
   width: 0;
+  position: absolute;
 }
 .toolbar .tool-menu li .btn-def{
   background: #0e1318;

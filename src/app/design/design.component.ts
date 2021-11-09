@@ -129,6 +129,7 @@ export class DesignComponent implements OnInit {
   }
 
   addText() {
+    console.log('hello');
     this.textFont = 60;
     this.fontFamily = 'helvetica';
     this.FontSizebtnShow = true;

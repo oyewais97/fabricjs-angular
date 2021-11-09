@@ -264,3 +264,10 @@ header .header-main .menu-left ul li a{
   border-radius: 0;
   text-align: center;
 }
+.thumb{
+    min-height: 95px;
+    max-height: 95px;
+    width: 100%;
+    background-color: rgb(255 255 255 / 10%);
+    margin-top: 0.75rem;
+}

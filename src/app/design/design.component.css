@@ -169,6 +169,11 @@ header .header-main .menu-left ul li a{
   background-position: 0 80%;
   background-size: 100% 4px;
 }
+.toolbar .tool-menu li.color-bg a input[type="color"]{
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
 .toolbar .tool-menu li .btn-def{
   background: #0e1318;
   color: #fff;

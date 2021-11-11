@@ -157,6 +157,12 @@ header .header-main .menu-left ul li a {
   margin-bottom: 0;
   font-size: 14px;
 }
+.mycanvas {
+  border: 0.1rem solid rgb(231, 229, 229);
+}
+.mycanvas:hover {
+  border: 0.5rem solid rgb(88, 161, 28);
+}
 .headings p strong {
   font-weight: 600;
 }

@@ -43,7 +43,7 @@ export class DesignComponent implements OnInit {
 
   text = [
     {
-      title: 'ADD TEXT',
+      title: 'Add Text',
     },
   ];
   items: any = [];
@@ -102,15 +102,13 @@ export class DesignComponent implements OnInit {
   setBodyText() {
     this.canvas.add(
       new fabric.Textbox(
-        'add text in the textbox writing paragraph and so on',
+        'Add Text',
         {
           left: 70,
           top: 100,
           fontFamily: 'helvetica neue',
           fill: '#000',
-          stroke: '#fff',
-          strokeWidth: 0,
-          fontSize: 22,
+          fontSize: 20,
         }
       )
     );
@@ -173,7 +171,7 @@ export class DesignComponent implements OnInit {
     this.FontSizebtnShow = true;
 
     this.canvas.add(
-      new fabric.IText('ADD TEXT', {
+      new fabric.IText('HEADING 1', {
         left: 50,
         top: 100,
         fontFamily: 'helvetica neue',
@@ -193,7 +191,7 @@ export class DesignComponent implements OnInit {
     this.FontSizebtnShow = true;
 
     this.canvas.add(
-      new fabric.IText('ADD TEXT', {
+      new fabric.IText('HEADING 2', {
         left: 50,
         top: 100,
         fontFamily: 'helvetica neue',

@@ -437,7 +437,7 @@
     </aside>
     <div class="main-container">
       <div class="toolbar t-top">
-        <ul class="tool-menu">
+        <ul *ngIf="canvas.getActiveObject()" class="tool-menu">
           <li>
             <select
               [(ngModel)]="fontFamily"

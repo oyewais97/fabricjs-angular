@@ -101,18 +101,16 @@ export class DesignComponent implements OnInit {
   }
   setBodyText() {
     this.canvas.add(
-      new fabric.Textbox(
-        'Add Text',
-        {
-          left: 70,
-          top: 100,
-          fontFamily: 'helvetica neue',
-          fill: '#000',
-          fontSize: 20,
-        }
-      )
+      new fabric.Textbox('Add Text', {
+        left: 70,
+        top: 100,
+        fontFamily: 'helvetica neue',
+        fill: '#000',
+        fontSize: 20,
+      })
     );
   }
+  textShowValue: any;
   changeFont(operator: any) {
     if (this.textHeadingone) {
       let textFont = this.textFont + 1;
@@ -130,16 +128,18 @@ export class DesignComponent implements OnInit {
     console.log(this.textFont);
   }
   changeFont2(operator: any) {
-    let textFont = this.textFont - 1;
-    let obj = this.canvas;
-    operator === '+' ? textFont++ : textFont--;
-    console.log(textFont);
-    for (let i = textFont; i < textFont + 1; i++) {
-      this.textfont2 = i;
-      obj.getActiveObject().set('fontSize', i);
-      obj.renderAll();
+    if (this.canvas.getActiveObject()) {
+      let textFont = this.textFont - 1;
+      let obj = this.canvas;
+      operator === '+' ? textFont++ : textFont--;
+      console.log(textFont);
+      for (let i = textFont; i < textFont + 1; i++) {
+        this.textfont2 = i;
+        obj.getActiveObject().set('fontSize', i);
+        obj.renderAll();
+      }
+      this.textFont = this.textFont - 1;
     }
-    this.textFont = this.textFont - 1;
     console.log(this.textFont);
   }
   FontInput(e: any) {

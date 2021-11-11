@@ -54,6 +54,7 @@ export class DesignComponent implements OnInit {
     },
   ];
   resultImage: any;
+
   // selectedFile: any[];
   canvas: any;
   value: any;
@@ -67,6 +68,8 @@ export class DesignComponent implements OnInit {
   // onFileChanged(event: any) {
   //   this.selectedFile = event.target.files[0];
   // }
+  textitalic = 'italic';
+  textUnderline = 'underline';
   textBold = false;
   textFont = 60;
   secondtext = 0;
@@ -85,7 +88,33 @@ export class DesignComponent implements OnInit {
     this.canvas.setHeight(this.canvaHeigth);
     this.canvas.setWidth(this.canvaWidth);
   }
-
+  setTextItalic() {
+    let obj = this.canvas;
+    obj.getActiveObject().set('fontStyle', 'italic');
+    obj.renderAll();
+  }
+  setTextUnderline() {
+    console.log('hhh');
+    let obj = this.canvas;
+    obj.getActiveObject().set('text-decoration', 'underline');
+    obj.renderAll();
+  }
+  setBodyText() {
+    this.canvas.add(
+      new fabric.Textbox(
+        'add text in the textbox writing paragraph and so on',
+        {
+          left: 70,
+          top: 100,
+          fontFamily: 'helvetica neue',
+          fill: '#000',
+          stroke: '#fff',
+          strokeWidth: 0,
+          fontSize: 22,
+        }
+      )
+    );
+  }
   changeFont(operator: any) {
     if (this.textHeadingone) {
       let textFont = this.textFont + 1;
@@ -336,10 +365,10 @@ export class DesignComponent implements OnInit {
         .scale(scale);
       canvas.add(oImg).renderAll();
       //var a = canvas.setActiveObject(oImg);
-      var dataURL = canvas.toDataURL({
-        format: 'png',
-        quality: 1,
-      });
+      // var dataURL = canvas.toDataURL({
+      //   format: 'png',
+      //   quality: 1,
+      // });
     });
   }
 
@@ -348,7 +377,10 @@ export class DesignComponent implements OnInit {
     downloadLink.setAttribute('download', 'CanvasAsImage.png');
     const image = new Image();
     image.crossOrigin = 'anonymous';
-    image.src = this.canvas.toDataURL('image/png');
+    image.src = this.canvas.toDataURL({
+      format: 'png',
+      quality: 3,
+    });
     downloadLink.setAttribute('href', image.src);
     downloadLink.click();
     let wi: any = window.open('');

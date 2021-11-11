@@ -235,11 +235,11 @@
   <header>
     <div class="header-main">
       <div class="menu-left">
-        <ul>
+        <!-- <ul>
           <li><a href="">Home</a></li>
           <li><a href="">Files</a></li>
           <li><a href="">Resize</a></li>
-        </ul>
+        </ul> -->
       </div>
       <div class="menu-right">
         <div class="btn-wrap">
@@ -298,7 +298,7 @@
                   </svg>
                 </span>
 
-                <span class="text">upload</span>
+                <span class="text">Photos</span>
               </a>
             </li>
             <li class="active">
@@ -379,7 +379,9 @@
               <div class="card-flat c-h2" (click)="textSizeHeading2()">
                 Add a heading
               </div>
-              <div class="card-flat c-h3">Add a heading</div>
+              <div class="card-flat c-h3" (click)="setBodyText()">
+                Add a little bit body text
+              </div>
             </div>
             <div *ngIf="imageDisplay && !textDisplay">
               <div class="menu-gr">
@@ -548,7 +550,7 @@
               </svg>
             </a>
           </li>
-          <li>
+          <li (click)="setTextItalic()">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -564,7 +566,7 @@
               </svg>
             </a>
           </li>
-          <li>
+          <!-- <li (click)="setTextUnderline()">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -578,7 +580,7 @@
                 ></path>
               </svg>
             </a>
-          </li>
+          </li> -->
         </ul>
         <ul class="tool-menu">
           <li (click)="delete()">
@@ -598,9 +600,8 @@
           </li>
         </ul>
       </div>
-      <div class="second-container col-6 mx-auto">
-        <canvas id="myCanvas" style="border: 2px solid rgb(12, 12, 12)">
-        </canvas>
+      <div class="second-container col-10 mx-auto">
+        <canvas id="myCanvas" class="mycanvas"> </canvas>
       </div>
       <div class="main-canvas"></div>
       <div class="toolbar">
